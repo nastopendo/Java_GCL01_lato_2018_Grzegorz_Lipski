@@ -1,0 +1,291 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(106,135,89); }
+.s3 { color: rgb(104,151,187); }
+.s4 { color: rgb(128,128,128); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Main.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">sample</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">import </span><span class="s1">java.sql.Time</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">java.util.*</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.application.Application</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.event.ActionEvent</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.event.EventHandler</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.Scene</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.application.Platform</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.Button</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.Label</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.Menu</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.MenuBar</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.MenuItem</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.TextField</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.image.Image</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.input.MouseEvent</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.layout.*</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.paint.Color</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.stage.Stage</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.image.ImageView</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.control.*</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.text.Font</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">public class </span><span class="s1">Main </span><span class="s0">extends </span><span class="s1">Application { 
+ 
+ 
+    @Override 
+    </span><span class="s0">public void </span><span class="s1">start(Stage primaryStage) { 
+        primaryStage.setTitle(</span><span class="s2">&quot;Analogowy zegar z alarmami&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane anchorPane = </span><span class="s0">new </span><span class="s1">AnchorPane()</span><span class="s0">;</span><span class="s1"> 
+ 
+        Scene scene = </span><span class="s0">new </span><span class="s1">Scene(anchorPane</span><span class="s0">, </span><span class="s3">800</span><span class="s0">, </span><span class="s3">500</span><span class="s0">, </span><span class="s1">Color.BLUE)</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        ResizableCanvas canvas = </span><span class="s0">new </span><span class="s1">ResizableCanvas()</span><span class="s0">;</span><span class="s1"> 
+        canvas.widthProperty().bind(anchorPane.widthProperty())</span><span class="s0">;</span><span class="s1"> 
+        canvas.heightProperty().bind(anchorPane.heightProperty())</span><span class="s0">;</span><span class="s1"> 
+ 
+        anchorPane.getChildren().add(canvas)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setLeftAnchor(canvas</span><span class="s0">,</span><span class="s3">0.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setTopAnchor(canvas</span><span class="s0">,</span><span class="s3">28.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setBottomAnchor(canvas</span><span class="s0">, </span><span class="s3">0.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        Label alarmLabel = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;Lista alarmów:&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+        Time time0 = </span><span class="s0">new </span><span class="s1">Time(</span><span class="s3">7</span><span class="s0">,</span><span class="s3">10</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        Time time1 = </span><span class="s0">new </span><span class="s1">Time(</span><span class="s3">10</span><span class="s0">,</span><span class="s3">53</span><span class="s0">,</span><span class="s3">21</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        Time time2 = </span><span class="s0">new </span><span class="s1">Time(</span><span class="s3">6</span><span class="s0">,</span><span class="s3">10</span><span class="s0">,</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        ListView&lt;Time&gt; listView = </span><span class="s0">new </span><span class="s1">ListView&lt;Time&gt;()</span><span class="s0">;</span><span class="s1"> 
+        listView.getItems().addAll(time0</span><span class="s0">, </span><span class="s1">time1</span><span class="s0">, </span><span class="s1">time2)</span><span class="s0">;</span><span class="s1"> 
+        Collections.sort(listView.getItems())</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        ContextMenu contextMenu = </span><span class="s0">new </span><span class="s1">ContextMenu()</span><span class="s0">;</span><span class="s1"> 
+        MenuItem deleteItem = </span><span class="s0">new </span><span class="s1">MenuItem(</span><span class="s2">&quot;Delete&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        contextMenu.getItems().add(deleteItem)</span><span class="s0">;</span><span class="s1"> 
+        listView.setContextMenu(contextMenu)</span><span class="s0">;</span><span class="s1"> 
+ 
+        deleteItem.setOnAction(</span><span class="s0">new </span><span class="s1">EventHandler&lt;ActionEvent&gt;() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">handle(ActionEvent event) { 
+                </span><span class="s0">int </span><span class="s1">selectedIdx = listView.getSelectionModel().getSelectedIndex()</span><span class="s0">;</span><span class="s1"> 
+                listView.getItems().remove(selectedIdx)</span><span class="s0">;</span><span class="s1"> 
+            } 
+        })</span><span class="s0">;</span><span class="s1"> 
+ 
+        anchorPane.getChildren().addAll(listView</span><span class="s0">, </span><span class="s1">alarmLabel)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setRightAnchor(alarmLabel</span><span class="s0">,</span><span class="s3">30.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setTopAnchor(alarmLabel</span><span class="s0">,</span><span class="s3">38.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setRightAnchor(listView</span><span class="s0">,</span><span class="s3">30.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setTopAnchor(listView</span><span class="s0">,</span><span class="s3">55.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setBottomAnchor(listView</span><span class="s0">, </span><span class="s3">20.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        MenuBar menu = </span><span class="s0">new </span><span class="s1">MenuBar()</span><span class="s0">;</span><span class="s1"> 
+        Menu menuProgram = </span><span class="s0">new </span><span class="s1">Menu(</span><span class="s2">&quot;Program&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        menuProgram.getItems().add(</span><span class="s0">new </span><span class="s1">MenuItem(</span><span class="s2">&quot;Zamknij&quot;</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+        Menu menuAlarm = </span><span class="s0">new </span><span class="s1">Menu(</span><span class="s2">&quot;Budzik&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        MenuItem addAlarm = </span><span class="s0">new </span><span class="s1">MenuItem(</span><span class="s2">&quot;Dodaj alarm&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        MenuItem clearAlarms = </span><span class="s0">new </span><span class="s1">MenuItem(</span><span class="s2">&quot;Wyczyść alarmy&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        menuAlarm.getItems().add(addAlarm)</span><span class="s0">;</span><span class="s1"> 
+        menuAlarm.getItems().add(clearAlarms)</span><span class="s0">;</span><span class="s1"> 
+ 
+        Label menuAboutLabel = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;O autorze&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        Menu menuAbout = </span><span class="s0">new </span><span class="s1">Menu()</span><span class="s0">;</span><span class="s1"> 
+        menuAbout.setGraphic(menuAboutLabel)</span><span class="s0">;</span><span class="s1"> 
+        menu.getMenus().addAll(menuProgram</span><span class="s0">, </span><span class="s1">menuAlarm</span><span class="s0">, </span><span class="s1">menuAbout)</span><span class="s0">;</span><span class="s1"> 
+        anchorPane.getChildren().add(menu)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setTopAnchor(menu</span><span class="s0">, </span><span class="s3">0.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setLeftAnchor(menu</span><span class="s0">,</span><span class="s3">0.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        AnchorPane.setRightAnchor(menu</span><span class="s0">,</span><span class="s3">0.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+        Calendar c = Calendar.getInstance()</span><span class="s0">;</span><span class="s1"> 
+        Alarm alarm = </span><span class="s0">new </span><span class="s1">Alarm()</span><span class="s0">;</span><span class="s1"> 
+ 
+        menuProgram.setOnAction(</span><span class="s0">new </span><span class="s1">EventHandler&lt;ActionEvent&gt;() { 
+            </span><span class="s0">public void </span><span class="s1">handle(ActionEvent t) { 
+                System.out.println(</span><span class="s2">&quot;Calling Platform.exit():&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Platform.exit()</span><span class="s0">;</span><span class="s1"> 
+                System.out.println(</span><span class="s2">&quot;Calling System.exit(0):&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                System.exit(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+            } 
+        })</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+        addAlarm.setOnAction(</span><span class="s0">new </span><span class="s1">EventHandler&lt;ActionEvent&gt;() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">handle(ActionEvent event) { 
+ 
+                Stage alarmStage = </span><span class="s0">new </span><span class="s1">Stage()</span><span class="s0">;</span><span class="s1"> 
+                alarmStage.setTitle(</span><span class="s2">&quot;Panel dodawania alarmów&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                GridPane gridAlarmPane = </span><span class="s0">new </span><span class="s1">GridPane()</span><span class="s0">;</span><span class="s1"> 
+ 
+                Label hourError = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label minuteError = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label secondError = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label hourLabel = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;Godzina: &quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label minuteLabel = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;Minuta: &quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label secondLabel = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;Sekunda: &quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                TextField hourField = </span><span class="s0">new </span><span class="s1">TextField()</span><span class="s0">;</span><span class="s1"> 
+                TextField minuteField = </span><span class="s0">new </span><span class="s1">TextField()</span><span class="s0">;</span><span class="s1"> 
+                TextField secondField = </span><span class="s0">new </span><span class="s1">TextField()</span><span class="s0">;</span><span class="s1"> 
+                Button clearButton = </span><span class="s0">new </span><span class="s1">Button(</span><span class="s2">&quot;Wyczyść&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Button addAlarmButton = </span><span class="s0">new </span><span class="s1">Button(</span><span class="s2">&quot;Dodaj alarm&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                gridAlarmPane.setHgap(</span><span class="s3">10.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.setVgap(</span><span class="s3">10.0</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(hourError</span><span class="s0">,</span><span class="s3">2</span><span class="s0">, </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(minuteError</span><span class="s0">,</span><span class="s3">2</span><span class="s0">, </span><span class="s3">3</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(secondError</span><span class="s0">,</span><span class="s3">2</span><span class="s0">, </span><span class="s3">5</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(hourLabel</span><span class="s0">,</span><span class="s3">1</span><span class="s0">,</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(minuteLabel</span><span class="s0">,</span><span class="s3">1</span><span class="s0">,</span><span class="s3">4</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(secondLabel</span><span class="s0">,</span><span class="s3">1</span><span class="s0">,</span><span class="s3">6</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(hourField</span><span class="s0">,</span><span class="s3">2</span><span class="s0">,</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(minuteField</span><span class="s0">,</span><span class="s3">2</span><span class="s0">,</span><span class="s3">4</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(secondField</span><span class="s0">,</span><span class="s3">2</span><span class="s0">,</span><span class="s3">6</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(clearButton</span><span class="s0">,</span><span class="s3">1</span><span class="s0">,</span><span class="s3">8</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridAlarmPane.add(addAlarmButton</span><span class="s0">,</span><span class="s3">2</span><span class="s0">,</span><span class="s3">8</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                addAlarmButton.setOnAction(</span><span class="s0">new </span><span class="s1">EventHandler&lt;ActionEvent&gt;() { 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">handle(ActionEvent event) { 
+ 
+                        hourError.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        minuteError.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        secondError.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                        </span><span class="s0">int </span><span class="s1">h=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">m=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">s=</span><span class="s3">0</span><span class="s0">;</span><span class="s1"> 
+                        </span><span class="s0">try</span><span class="s1">{ 
+                            h=Integer.parseInt(hourField.getText())</span><span class="s0">;</span><span class="s1"> 
+                        } </span><span class="s0">catch </span><span class="s1">(Exception ex) { 
+                            hourError.setText(</span><span class="s2">&quot;Niepoprawny format&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        } 
+                        </span><span class="s0">try</span><span class="s1">{ 
+                            m=Integer.parseInt(minuteField.getText())</span><span class="s0">;</span><span class="s1"> 
+                        } </span><span class="s0">catch </span><span class="s1">(Exception ex) { 
+                            minuteError.setText(</span><span class="s2">&quot;Niepoprawny format&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        } 
+                        </span><span class="s0">try</span><span class="s1">{ 
+                            s=Integer.parseInt(secondField.getText())</span><span class="s0">;</span><span class="s1"> 
+                        } </span><span class="s0">catch </span><span class="s1">(Exception ex) { 
+                            secondError.setText(</span><span class="s2">&quot;Niepoprawny format&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        } 
+                        </span><span class="s0">if </span><span class="s1">(hourError.getText() == </span><span class="s2">&quot;&quot; </span><span class="s1">&amp;&amp; ((h&lt;</span><span class="s3">0 </span><span class="s1">|| h&gt;</span><span class="s3">24</span><span class="s1">))) hourError.setText(</span><span class="s2">&quot;Niepoprawna wartość&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        </span><span class="s0">if </span><span class="s1">(minuteError.getText() == </span><span class="s2">&quot;&quot; </span><span class="s1">&amp;&amp; ((h&lt;</span><span class="s3">0 </span><span class="s1">|| h&gt;</span><span class="s3">60</span><span class="s1">))) minuteError.setText(</span><span class="s2">&quot;Niepoprawna wartość&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        </span><span class="s0">if </span><span class="s1">(secondError.getText() == </span><span class="s2">&quot;&quot; </span><span class="s1">&amp;&amp; ((h&lt;</span><span class="s3">0 </span><span class="s1">|| h&gt;</span><span class="s3">60</span><span class="s1">))) secondError.setText(</span><span class="s2">&quot;Niepoprawna wartość&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                            </span><span class="s0">if</span><span class="s1">(hourError.getText() == </span><span class="s2">&quot;&quot; </span><span class="s1">&amp;&amp; minuteError.getText() == </span><span class="s2">&quot;&quot; </span><span class="s1">&amp;&amp; secondError.getText() == </span><span class="s2">&quot;&quot;</span><span class="s1">){ 
+                            Time time = </span><span class="s0">new </span><span class="s1">Time(h</span><span class="s0">,</span><span class="s1">m</span><span class="s0">,</span><span class="s1">s)</span><span class="s0">;</span><span class="s1"> 
+                            listView.getItems().add(time)</span><span class="s0">;</span><span class="s1"> 
+                            Collections.sort(listView.getItems())</span><span class="s0">;</span><span class="s1"> 
+                        } 
+ 
+                    } 
+                })</span><span class="s0">;</span><span class="s1"> 
+ 
+                clearButton.setOnAction(</span><span class="s0">new </span><span class="s1">EventHandler&lt;ActionEvent&gt;() { 
+                    @Override 
+                    </span><span class="s0">public void </span><span class="s1">handle(ActionEvent event) { 
+                        hourError.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        hourField.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        minuteError.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        minuteField.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        secondError.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                        secondField.setText(</span><span class="s2">&quot;&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                    } 
+                })</span><span class="s0">;</span><span class="s1"> 
+ 
+                Scene scene = </span><span class="s0">new </span><span class="s1">Scene(gridAlarmPane</span><span class="s0">, </span><span class="s3">300</span><span class="s0">, </span><span class="s3">250</span><span class="s0">, </span><span class="s1">Color.WHITE)</span><span class="s0">;</span><span class="s1"> 
+                alarmStage.setScene(scene)</span><span class="s0">;</span><span class="s1"> 
+                alarmStage.show()</span><span class="s0">;</span><span class="s1"> 
+            } 
+ 
+        })</span><span class="s0">;</span><span class="s1"> 
+ 
+        clearAlarms.setOnAction(</span><span class="s0">new </span><span class="s1">EventHandler&lt;ActionEvent&gt;() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">handle(ActionEvent event) { 
+                listView.getItems().clear()</span><span class="s0">;</span><span class="s1"> 
+            } 
+        })</span><span class="s0">;</span><span class="s1"> 
+ 
+        menuAboutLabel.setOnMouseClicked(</span><span class="s0">new </span><span class="s1">EventHandler&lt;MouseEvent&gt;() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">handle(MouseEvent event) { 
+                Stage aboutStage = </span><span class="s0">new </span><span class="s1">Stage()</span><span class="s0">;</span><span class="s1"> 
+                aboutStage.setTitle(</span><span class="s2">&quot;O autorze&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                </span><span class="s4">// load the image</span><span class="s1"> 
+                Image image = </span><span class="s0">new </span><span class="s1">Image(</span><span class="s2">&quot;profilePhoto.png&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                </span><span class="s4">// simple displays ImageView the image as is</span><span class="s1"> 
+                ImageView imageView = </span><span class="s0">new </span><span class="s1">ImageView()</span><span class="s0">;</span><span class="s1"> 
+                imageView.setImage(image)</span><span class="s0">;</span><span class="s1"> 
+ 
+                GridPane gridPane = </span><span class="s0">new </span><span class="s1">GridPane()</span><span class="s0">;</span><span class="s1"> 
+                gridPane.add(imageView</span><span class="s0">,</span><span class="s3">1</span><span class="s0">,</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                Label autorName = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;Grzegorz Lipski&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label autorAddress = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;Leszczków 9, 27-540 Lipnik&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Label autorPhoneNumber = </span><span class="s0">new </span><span class="s1">Label(</span><span class="s2">&quot;+48 678 567 312&quot;</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+                autorName.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s2">&quot;Arial&quot;</span><span class="s0">, </span><span class="s3">20</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+                autorAddress.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s2">&quot;Arial&quot;</span><span class="s0">, </span><span class="s3">15</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+                autorPhoneNumber.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s2">&quot;Arial&quot;</span><span class="s0">, </span><span class="s3">15</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+ 
+                VBox autorInfoBox = </span><span class="s0">new </span><span class="s1">VBox(</span><span class="s3">8</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                autorInfoBox.getChildren().addAll(autorName</span><span class="s0">,</span><span class="s1">autorAddress</span><span class="s0">,</span><span class="s1">autorPhoneNumber)</span><span class="s0">;</span><span class="s1"> 
+ 
+                gridPane.add(autorInfoBox</span><span class="s0">,</span><span class="s3">2</span><span class="s0">,</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridPane.setVgap(</span><span class="s3">15</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                gridPane.setHgap(</span><span class="s3">15</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+                Scene scene = </span><span class="s0">new </span><span class="s1">Scene(gridPane</span><span class="s0">, </span><span class="s3">550</span><span class="s0">, </span><span class="s3">430</span><span class="s0">, </span><span class="s1">Color.WHITE)</span><span class="s0">;</span><span class="s1"> 
+                aboutStage.setScene(scene)</span><span class="s0">;</span><span class="s1"> 
+                aboutStage.show()</span><span class="s0">;</span><span class="s1"> 
+            } 
+        })</span><span class="s0">;</span><span class="s1"> 
+ 
+        primaryStage.setScene(scene)</span><span class="s0">;</span><span class="s1"> 
+        primaryStage.show()</span><span class="s0">;</span><span class="s1"> 
+ 
+        Timer timer = </span><span class="s0">new </span><span class="s1">Timer()</span><span class="s0">;</span><span class="s1"> 
+        timer.scheduleAtFixedRate(</span><span class="s0">new </span><span class="s1">TimerTask() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                canvas.onDraw()</span><span class="s0">;</span><span class="s1"> 
+ 
+            } 
+        }</span><span class="s0">,</span><span class="s3">0</span><span class="s0">, </span><span class="s3">1000</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+ 
+        Timer alarmTimer = </span><span class="s0">new </span><span class="s1">Timer()</span><span class="s0">;</span><span class="s1"> 
+        alarmTimer.scheduleAtFixedRate(</span><span class="s0">new </span><span class="s1">TimerTask() { 
+            @Override 
+            </span><span class="s0">public void </span><span class="s1">run() { 
+                </span><span class="s0">for </span><span class="s1">(Time time : listView.getItems()) { 
+                    </span><span class="s0">if</span><span class="s1">(time.getHours() == c.get(Calendar.HOUR_OF_DAY) &amp;&amp; time.getMinutes() == c.get(Calendar.MINUTE)) alarm.playAlarm()</span><span class="s0">;</span><span class="s1"> 
+                } 
+            } 
+        }</span><span class="s0">,</span><span class="s3">0</span><span class="s0">, </span><span class="s3">60000</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s0">public static void </span><span class="s1">main(String[] args) { 
+        launch(args)</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+}</span></pre>
+</body>
+</html>

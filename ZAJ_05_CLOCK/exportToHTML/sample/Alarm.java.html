@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>Alarm.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(106,135,89); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Alarm.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">sample</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">import </span><span class="s1">javafx.scene.media.Media</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.media.MediaPlayer</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">public class </span><span class="s1">Alarm { 
+    </span><span class="s0">private </span><span class="s1">MediaPlayer mediaPlayer</span><span class="s0">;</span><span class="s1"> 
+ 
+    </span><span class="s0">public void </span><span class="s1">playAlarm() 
+    { 
+        Media media = </span><span class="s0">new </span><span class="s1">Media(getClass().getResource(</span><span class="s2">&quot;budzik.mp3&quot;</span><span class="s1">).toString())</span><span class="s0">;</span><span class="s1"> 
+        </span><span class="s0">this</span><span class="s1">.mediaPlayer = </span><span class="s0">new </span><span class="s1">MediaPlayer(media)</span><span class="s0">;</span><span class="s1"> 
+        </span><span class="s0">this</span><span class="s1">.mediaPlayer.play()</span><span class="s0">;</span><span class="s1"> 
+    } 
+}</span></pre>
+</body>
+</html>

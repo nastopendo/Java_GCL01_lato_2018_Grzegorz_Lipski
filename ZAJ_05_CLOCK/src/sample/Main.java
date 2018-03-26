@@ -259,7 +259,7 @@ public class Main extends Application {
                     if(time.getHours() == c.get(Calendar.HOUR_OF_DAY) && time.getMinutes() == c.get(Calendar.MINUTE)) alarm.playAlarm();
                 }
             }
-        },0, 60000);
+        },0, 10000);
     }
 
     public static void main(String[] args) {

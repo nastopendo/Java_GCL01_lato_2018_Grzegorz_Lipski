@@ -1,0 +1,119 @@
+<html>
+<head>
+<title>ResizableCanvas.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(104,151,187); }
+.s3 { color: rgb(106,135,89); }
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+ResizableCanvas.java</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">package </span><span class="s1">sample</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">import </span><span class="s1">javafx.scene.canvas.Canvas</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.canvas.GraphicsContext</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.paint.Color</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">javafx.scene.text.Font</span><span class="s0">;</span><span class="s1"> 
+</span><span class="s0">import </span><span class="s1">java.util.Calendar</span><span class="s0">;</span><span class="s1"> 
+ 
+</span><span class="s0">public class </span><span class="s1">ResizableCanvas </span><span class="s0">extends </span><span class="s1">Canvas { 
+ 
+    </span><span class="s0">private </span><span class="s1">GraphicsContext gc</span><span class="s0">;</span><span class="s1"> 
+    </span><span class="s0">private double </span><span class="s1">height</span><span class="s0">;</span><span class="s1"> 
+    </span><span class="s0">private double </span><span class="s1">width</span><span class="s0">;</span><span class="s1"> 
+    </span><span class="s0">private double </span><span class="s1">padding = </span><span class="s2">0</span><span class="s0">;</span><span class="s1"> 
+    </span><span class="s0">private double </span><span class="s1">numeralSpacing = </span><span class="s2">20</span><span class="s0">;</span><span class="s1"> 
+    </span><span class="s0">private double </span><span class="s1">radius = </span><span class="s2">0</span><span class="s0">;</span><span class="s1"> 
+    </span><span class="s0">private  int</span><span class="s1">[] numbers = {</span><span class="s2">1</span><span class="s0">,</span><span class="s2">2</span><span class="s0">,</span><span class="s2">3</span><span class="s0">,</span><span class="s2">4</span><span class="s0">,</span><span class="s2">5</span><span class="s0">,</span><span class="s2">6</span><span class="s0">,</span><span class="s2">7</span><span class="s0">,</span><span class="s2">8</span><span class="s0">,</span><span class="s2">9</span><span class="s0">,</span><span class="s2">10</span><span class="s0">,</span><span class="s2">11</span><span class="s0">,</span><span class="s2">12</span><span class="s1">}</span><span class="s0">;</span><span class="s1"> 
+ 
+ 
+    </span><span class="s0">public </span><span class="s1">ResizableCanvas() { 
+        widthProperty().addListener(evt -&gt; onDraw())</span><span class="s0">;</span><span class="s1"> 
+        heightProperty().addListener(evt -&gt; onDraw())</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s0">public  void </span><span class="s1">initClock(){ 
+        height = getHeight() - </span><span class="s2">20</span><span class="s0">;</span><span class="s1"> 
+        width = getWidth()</span><span class="s0">;</span><span class="s1"> 
+        padding = numeralSpacing+</span><span class="s2">30</span><span class="s0">;</span><span class="s1"> 
+        </span><span class="s0">double </span><span class="s1">min = Math.min(height</span><span class="s0">,</span><span class="s1">width)</span><span class="s0">;</span><span class="s1"> 
+        radius = min/</span><span class="s2">2</span><span class="s1">-padding</span><span class="s0">;</span><span class="s1"> 
+ 
+        gc = getGraphicsContext2D()</span><span class="s0">;</span><span class="s1"> 
+        gc.clearRect(</span><span class="s2">0</span><span class="s0">, </span><span class="s2">0</span><span class="s0">, </span><span class="s1">width</span><span class="s0">, </span><span class="s1">height)</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s0">public void </span><span class="s1">onDraw() 
+    { 
+        initClock()</span><span class="s0">;</span><span class="s1"> 
+        drawCircle()</span><span class="s0">;</span><span class="s1"> 
+        drawNumeral()</span><span class="s0">;</span><span class="s1"> 
+        drawHands()</span><span class="s0">;</span><span class="s1"> 
+ 
+    } 
+ 
+    </span><span class="s0">private void </span><span class="s1">drawCircle() { 
+       gc.setStroke(Color.rgb(</span><span class="s2">2</span><span class="s0">,</span><span class="s2">136</span><span class="s0">,</span><span class="s2">209</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+        gc.setLineWidth(</span><span class="s2">10</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        gc.setFill(Color.rgb(</span><span class="s2">33</span><span class="s0">,</span><span class="s2">199</span><span class="s0">,</span><span class="s2">255</span><span class="s0">,</span><span class="s2">0.6</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+        gc.fillOval(</span><span class="s2">20</span><span class="s0">, </span><span class="s2">20</span><span class="s0">, </span><span class="s1">height - </span><span class="s2">38</span><span class="s0">, </span><span class="s1">height - </span><span class="s2">38</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        gc.strokeOval(</span><span class="s2">20</span><span class="s0">,</span><span class="s2">20</span><span class="s0">,</span><span class="s1">height - </span><span class="s2">38</span><span class="s0">,</span><span class="s1">height - </span><span class="s2">38</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+    } 
+    </span><span class="s0">private void </span><span class="s1">drawNumeral() { 
+        </span><span class="s0">for</span><span class="s1">(</span><span class="s0">int </span><span class="s1">number : numbers){ 
+            String tmp = String.valueOf(number)</span><span class="s0">;</span><span class="s1"> 
+            </span><span class="s0">double </span><span class="s1">angle = Math.PI / </span><span class="s2">6 </span><span class="s1">* (number-</span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+            </span><span class="s0">int </span><span class="s1">x = (</span><span class="s0">int</span><span class="s1">) (height/</span><span class="s2">2</span><span class="s1">+Math.cos(angle)*radius-height/</span><span class="s2">50</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+            </span><span class="s0">int </span><span class="s1">y = (</span><span class="s0">int</span><span class="s1">) (height/</span><span class="s2">2</span><span class="s1">+Math.sin(angle)*radius+height/</span><span class="s2">40</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+            gc.setStroke(Color.BLACK)</span><span class="s0">;</span><span class="s1"> 
+            gc.setLineWidth(</span><span class="s2">1</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+            gc.setFont(</span><span class="s0">new </span><span class="s1">Font(</span><span class="s3">&quot;default&quot;</span><span class="s0">, </span><span class="s1">height/</span><span class="s2">15</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+            gc.setFill(Color.rgb(</span><span class="s2">210</span><span class="s0">,</span><span class="s2">239</span><span class="s0">,</span><span class="s2">255</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+            gc.fillText(tmp</span><span class="s0">, </span><span class="s1">x</span><span class="s0">, </span><span class="s1">y)</span><span class="s0">;</span><span class="s1"> 
+ 
+        } 
+    } 
+    </span><span class="s0">private void </span><span class="s1">drawHand(</span><span class="s0">double </span><span class="s1">time</span><span class="s0">, double </span><span class="s1">len){ 
+        </span><span class="s0">double </span><span class="s1">angle = Math.PI * time / </span><span class="s2">30 </span><span class="s1">- Math.PI / </span><span class="s2">2</span><span class="s0">;</span><span class="s1"> 
+        </span><span class="s0">double </span><span class="s1">handRadius = radius - len * height / </span><span class="s2">50</span><span class="s0">;</span><span class="s1"> 
+        gc.strokeLine(height/</span><span class="s2">2</span><span class="s0">,</span><span class="s1">height/</span><span class="s2">2</span><span class="s0">,</span><span class="s1">height/</span><span class="s2">2</span><span class="s1">+Math.cos(angle)*handRadius</span><span class="s0">,</span><span class="s1">height/</span><span class="s2">2</span><span class="s1">+Math.sin(angle)*handRadius)</span><span class="s0">;</span><span class="s1"> 
+    } 
+    </span><span class="s0">private void </span><span class="s1">drawHands() { 
+        gc.setStroke(Color.rgb(</span><span class="s2">255</span><span class="s0">,</span><span class="s2">255 </span><span class="s0">,</span><span class="s2">255</span><span class="s1">))</span><span class="s0">;</span><span class="s1"> 
+        gc.setLineWidth(</span><span class="s2">8</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        Calendar c = Calendar.getInstance()</span><span class="s0">;</span><span class="s1"> 
+        </span><span class="s0">float </span><span class="s1">hour = c.get(Calendar.HOUR_OF_DAY)</span><span class="s0">;</span><span class="s1"> 
+        hour = hour &gt; </span><span class="s2">12 </span><span class="s1">? hour - </span><span class="s2">12 </span><span class="s1">: hour</span><span class="s0">;</span><span class="s1"> 
+        drawHand((hour+c.get(Calendar.MINUTE) / </span><span class="s2">60</span><span class="s1">) * </span><span class="s2">5.0</span><span class="s0">,</span><span class="s2">8</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        gc.setLineWidth(</span><span class="s2">4</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        drawHand(c.get(Calendar.MINUTE)</span><span class="s0">, </span><span class="s2">5</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        gc.setLineWidth(</span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+        drawHand(c.get(Calendar.SECOND)</span><span class="s0">, </span><span class="s2">3</span><span class="s1">)</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public boolean </span><span class="s1">isResizable() { 
+        </span><span class="s0">return true;</span><span class="s1"> 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public double </span><span class="s1">prefWidth(</span><span class="s0">double </span><span class="s1">height) { 
+        </span><span class="s0">return </span><span class="s1">getHeight()</span><span class="s0">;</span><span class="s1"> 
+    } 
+ 
+    @Override 
+    </span><span class="s0">public double </span><span class="s1">prefHeight(</span><span class="s0">double </span><span class="s1">width) { 
+        </span><span class="s0">return </span><span class="s1">getHeight()</span><span class="s0">;</span><span class="s1"> 
+    } 
+}</span></pre>
+</body>
+</html>
