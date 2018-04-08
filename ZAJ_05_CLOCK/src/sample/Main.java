@@ -77,6 +77,7 @@ public class Main extends Application {
         MenuBar menu = new MenuBar();
         Menu menuProgram = new Menu("Program");
         menuProgram.getItems().add(new MenuItem("Zamknij"));
+
         Menu menuAlarm = new Menu("Budzik");
         MenuItem addAlarm = new MenuItem("Dodaj alarm");
         MenuItem clearAlarms = new MenuItem("Wyczyść alarmy");
@@ -86,6 +87,7 @@ public class Main extends Application {
         Label menuAboutLabel = new Label("O autorze");
         Menu menuAbout = new Menu();
         menuAbout.setGraphic(menuAboutLabel);
+
         menu.getMenus().addAll(menuProgram, menuAlarm, menuAbout);
         anchorPane.getChildren().add(menu);
         AnchorPane.setTopAnchor(menu, 0.0);
@@ -259,7 +261,7 @@ public class Main extends Application {
                     if(time.getHours() == c.get(Calendar.HOUR_OF_DAY) && time.getMinutes() == c.get(Calendar.MINUTE)) alarm.playAlarm();
                 }
             }
-        },0, 10000);
+        },0, 5000);
     }
 
     public static void main(String[] args) {
