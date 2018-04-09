@@ -8,13 +8,11 @@ class BasicCalculatorTest {
 
     @BeforeEach
     void setUp() {
-        System.out.println("dupa1");
         basicCalculator = new BasicCalculator();
     }
 
     @AfterEach
     void tearDown() {
-        System.out.println("dupa2");
         basicCalculator = null;
     }
 
