@@ -1,13 +1,16 @@
 import java.util.List;
 
-public class Worker{
+public class Worker implements Runnable{
     boolean isStarted = false;
     boolean isWorking = false;
+    private volatile boolean stop = false;
     List<Task> taskList;
-    WorkerThread workerThread;
+    Thread thread;
+    //WorkerThread workerThread;
     public Worker(String workerName) {
-        workerThread = new WorkerThread(workerName);
-        workerThread.setName(workerName);
+        this.thread = new Thread(this);
+        //workerThread = new WorkerThread(workerName);
+        //workerThread.setName(workerName);
     }
     void enqueueTask(String taskName, Task task ){
         task = new Task() {
@@ -20,9 +23,10 @@ public class Worker{
 
     } // dodającą kolejne zadania do wykonania
     void start(){
-
+        this.thread.start();
     } // uruchamia sekwencyjne wykonywanie kolejnych task’ów w nowym wątku; jako pierwsza operacja w nowym wątku wykonuje się onWorkerStarted
     void stop(){
+        this.stop = true;
 
     } // wysyła sygnał przerwania Worker’a; wykonanie tej metody ma spowodować bezpieczne przerwanie wątku – tzn. nie wolno przerwać task’u z poziomu wątku w trakcie jego wykonywania jako ostatnia operacja w wątku wykonuje się onWorkerStoped
     void setListener(WorkerListener workerListener){
@@ -56,8 +60,26 @@ public class Worker{
         return isWorking;
     } // informuje o tym czy Worker wykonuje obecnie jakieś zadania
 
+    @Override
+    public void run() {
+        System.out.println("Running " +  "dupa wołowa" );
 
+        try {
+            for(int i = 4; i > 0; i--) {
+                System.out.println("Thread: " + "dupa" + ", " + i);
+                if(stop){
+                    break;
+                }
+                // Let the thread sleep for a while.
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Thread " + "dupa" + " interrupted.");
+        }
+        System.out.println("Thread " +  "dupa" + " exiting.");
+    }
 
+/*
     class WorkerThread extends Thread {
         private Thread t;
         private String threadName;
@@ -68,18 +90,7 @@ public class Worker{
         }
 
         public void run() {
-            System.out.println("Running " +  threadName );
 
-            try {
-                for(int i = 4; i > 0; i--) {
-                    System.out.println("Thread: " + threadName + ", " + i);
-                    // Let the thread sleep for a while.
-                    Thread.sleep(500);
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Thread " +  threadName + " interrupted.");
-            }
-            System.out.println("Thread " +  threadName + " exiting.");
         }
 
         public void start () {
@@ -89,5 +100,7 @@ public class Worker{
                 t.start ();
             }
         }
+
     }
+    */
 }
