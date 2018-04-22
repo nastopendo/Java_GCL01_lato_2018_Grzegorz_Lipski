@@ -11,6 +11,7 @@ public class SystemCache {
     {
         return this.cache.get( new Parameter( input ) );
     }
+
     protected class Parameter
     {
         private double[] values;
@@ -18,6 +19,7 @@ public class SystemCache {
         {
             this.values = values;
         }
+
         @Override
         public int hashCode()
         {
