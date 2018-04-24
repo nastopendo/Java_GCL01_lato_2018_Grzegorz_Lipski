@@ -1,21 +1,29 @@
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         ScatterSystem system = new ScatterSystem();
 
-        SystemCache cache = new SystemCache();
+        SystemCache staraTomka = new SystemCache();
         ExtendedSystemCache extendedCache = new ExtendedSystemCache();
 
-//Deserializacja
+// Import form CSV file
+        try{
+            extendedCache.importCSV("hashMap.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+// Deserialization
         try {
             extendedCache.deserialize("hashMap.ser");
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
 
-// Wykorzystanie systemu z mechanizmem cache-ującym:
-        double[] input = {4.5, 5.66, -76.55}; // np. tablica losowych wartości
+// Cache-System use
+        double[] input = {99.8, -2.66, -6.55, 432.6, 432.74};
         Double output = extendedCache.get( input );
         if( output == null )
         {
@@ -24,7 +32,7 @@ public class Main {
             extendedCache.put( input, output );
         }
 
-// Wykorzystanie wyniku operacji
+// Result use
         System.out.print("Result: ");
         for (double number:input) {
             System.out.print(number + " + ");
@@ -32,14 +40,14 @@ public class Main {
         System.out.println(" = " + output);
 
 
- //Zapis do CSV
+// Export to CSV
         try{
             extendedCache.exportCSV("hashMap.csv");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-// Serializacja
+// Serialization
         try{
             extendedCache.serialize("hashMap.ser");
         } catch (IOException e) {

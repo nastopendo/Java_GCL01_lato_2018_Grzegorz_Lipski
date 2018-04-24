@@ -1,53 +1,64 @@
 import java.io.*;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class ExtendedSystemCache extends SystemCache implements Serializable{
-    private HashMap<Parameter, Double> cache = new HashMap<>();
+
 
 
 // ------------------- EXPORT TO CSV -------------------------
 
-
-    // wyeksportuje wszystkie przechowywane w mapie obiekty do pliku CSV
     void exportCSV( String path ) throws IOException {
-        File file = new File(path);
-        FileWriter fileWriter = new FileWriter(file);
+        FileOutputStream fileOutputStream = new FileOutputStream(path);
+        exportCSV(fileOutputStream);
+    }
+    void exportCSV( FileOutputStream fileOutputStream ) throws IOException{
+        OutputStream outputStream = fileOutputStream;
+        exportCSV(outputStream);
+    }
+    void exportCSV( OutputStream outputStream ) throws IOException{
         StringBuilder builder = new StringBuilder();
         for (HashMap.Entry<Parameter, Double> entry : cache.entrySet()) {
             Parameter key = entry.getKey();
+            for (Double x: key.values) {
+                builder.append(x.toString());
+                builder.append(", ");
+            }
             Double value = entry.getValue();
-            builder.append(key.toString());
             builder.append(value.toString());
             builder.append("\n");
         }
-        fileWriter.write(builder.toString());
-        System.out.println("Done2");
-        fileWriter.close();
-    }
-    void exportCSV( File file ) throws IOException{
-
-    }
-    void exportCSV( OutputStream stream ) throws IOException{
-
+        Writer outputStreamWriter = new OutputStreamWriter(outputStream);
+        outputStreamWriter.write(builder.toString());
+        outputStreamWriter.close();
     }
 
+    // ------------------- IMPORT FROM CSV -------------------------
 
-    // zaimportuje wszystkie rekordy z pliku CSV do mapy
     void importCSV( String path ) throws IOException{
-
+        File file = new File(path);
+        importCSV(file);
     }
     void importCSV( File file ) throws IOException{
-
+        Scanner scanner = new Scanner(file);
+        importCSV(scanner);
+        scanner.close();
     }
-    void importCSV( InputStream stream ) throws IOException{
-
+    void importCSV( Scanner scanner ) throws IOException{
+        while(scanner.hasNextLine()){
+            String str[] = scanner.nextLine().split(", ");
+            double tab[] = new double[str.length-1];
+            for (int i = 0; i < str.length-1; i++) {
+                tab[i] = Double.parseDouble(str[i]);
+            }
+            double value = Double.parseDouble(str[str.length-1]);
+            cache.put(new Parameter(tab), value);
+        }
     }
 
 
 // ------------------- SERIALIZATION -------------------------
 
-
-    // zapisze do pliku wszystkie pola znajdujące się w ExtendedSystemCache wykorzystując mechanizm serializacji
     void serialize( String path ) throws IOException{
         FileOutputStream file = new FileOutputStream(path);
         serialize(file);
@@ -63,7 +74,8 @@ public class ExtendedSystemCache extends SystemCache implements Serializable{
     }
 
 
-    // odczyta z pliku wszystkie pola znajdujące się w ExtendedSystemCache wykorzystując mechanizm serializacji
+// ------------------- DESERIALIZATION -------------------------
+
     void deserialize( String path ) throws IOException, ClassNotFoundException {
         FileInputStream file = new FileInputStream(path);
         deserialize(file);

@@ -1,8 +1,10 @@
+import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class SystemCache {
-    private HashMap<Parameter, Double> cache = new HashMap<>();
+    protected HashMap<Parameter, Double> cache = new HashMap<>();
     public void put( double[] input, double output )
     {
         this.cache.put( new Parameter( input ), output );
@@ -12,9 +14,9 @@ public class SystemCache {
         return this.cache.get( new Parameter( input ) );
     }
 
-    protected class Parameter
+    protected class Parameter implements Serializable
     {
-        private double[] values;
+        protected double[] values;
         public Parameter( double[] values )
         {
             this.values = values;
@@ -39,5 +41,20 @@ public class SystemCache {
                 return false;
             return true;
         }
+
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if ( this == obj )
+            return true;
+        if ( obj == null )
+            return false;
+        if ( this.getClass() != obj.getClass() )
+            return false;
+        SystemCache other = (SystemCache) obj;
+        if ( !cache.equals(other.cache) )
+            return false;
+        return true;
     }
 }
