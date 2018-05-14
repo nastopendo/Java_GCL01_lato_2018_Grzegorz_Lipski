@@ -1,7 +1,12 @@
 package com.glipski.gallery.dao;
 
+import com.glipski.gallery.config.MyProperties;
 import com.glipski.gallery.entity.Picture;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,13 +21,17 @@ import java.util.Map;
 
 @Repository
 public class PictureDao {
-
+    private Environment env;
     static SystemCache systemCache = new SystemCache();
     public static Map<Integer, Picture> pictures;// = new HashMap<>();
-    static private String picturesFolderPath = "src/main/resources/static/pictures/";
-    static private String serFilePath = "src/main/resources/static/serialization/hashMap.ser";
+    private String picturesFolderPath;
+    private String serFilePath;
 
-    static {
+    @Autowired
+    public PictureDao(Environment env) {
+        this.env = env;
+        picturesFolderPath = env.getProperty("my.pictures-path");
+        serFilePath = env.getProperty("my.serialization-file-path");
         try {
             if(new File(serFilePath).exists())
                 systemCache.deserialize(serFilePath);
