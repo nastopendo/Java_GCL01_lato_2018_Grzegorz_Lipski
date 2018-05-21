@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pictures List</title>
+    <!--<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />-->
+    <style>
+        a{
+            color: white;
+            text-underline: none;
+        }
+        img {
+            width: 150px;
+            height: auto;
+        }
+        button {
+            background-color: #f4511e;
+            border: none;
+            color: white;
+            padding: 12px 28px;
+            text-align: center;
+            font-size: 16px;
+            margin: 4px 2px;
+            opacity: 0.6;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        button:hover {opacity: 1}
+    </style>
+    <script>
+        $(document).ready(function () {
+            $('.table .dBtn').on('click',function(event){
+
+                $('.dBtn')
+            });
+        });
+    </script>
+</head>
+<body>
+<h2>Picture List</h2>
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <th>index</th>
+        <th>name</th>
+        <th>resolution</th>
+        <th>size</th>
+        <th>created</th>
+        <th>image</th>
+    </tr>
+    <tr th:each="picture, iterStat : ${picturelist}">
+        <td><span th:text="${picture.index}"></span></td>
+        <td><span th:text="${picture.name}"></span></td>
+        <td><span th:text="${picture.resolution}"></span></td>
+        <td><span th:text="${picture.size}"></span></td>
+        <td><span th:text="${picture.created}"></span></td>
+        <td><img th:src="@{'/gallery/picture/' + ${picture.index}}"/></td>
+        <!--<td><button class="button">Delete</button></td>-->
+        <!--<td> <a class="btn btn-primary dBtn">Delete</a> </td>-->
+        <!--<td><button class="button" onclick=pictureDao>Remove"</button></td>-->
+        <!--<td><a th:href="@{/delete_user(pictureIndex=${picture.index})}" class="btn btn-danger">Delete</a></td>-->
+        <td><button> <a th:href="@{/delete_user(pictureIndex=${picture.index})}" class="button">Delete</a></button></td>
+    </tr>
+</table>
+</body>
+</html>

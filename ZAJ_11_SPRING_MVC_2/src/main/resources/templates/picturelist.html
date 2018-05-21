@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Pictures List</title>
+    <!--<link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>-->
+    <style>
+        img {
+            width: 150px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<h2>Picture List</h2>
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <th>index</th>
+        <th>name</th>
+        <th>resolution</th>
+        <th>size</th>
+        <th>created</th>
+        <th>image</th>
+    </tr>
+    <tr th:each="picture, iterStat : ${picturelist}">
+        <td><span th:text="${picture.index}"></span></td>
+        <td><span th:text="${picture.name}"></span></td>
+        <td><span th:text="${picture.resolution}"></span></td>
+        <td><span th:text="${picture.size}"></span></td>
+        <td><span th:text="${picture.created}"></span></td>
+        <td><img th:src="@{'/gallery/picture/' + ${picture.index}}"/></td>
+    </tr>
+</table>
+</body>
+</html>

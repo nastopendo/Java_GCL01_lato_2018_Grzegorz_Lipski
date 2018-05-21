@@ -1,0 +1,30 @@
+@charset "ISO-8859-1";
+
+/*img{*/
+    /*width: 200px;*/
+    /*height: 150px;*/
+/*}*/
+
+a{
+    color: white;
+    text-underline: none;
+}
+img {
+    width: 150px;
+    height: auto;
+}
+button {
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+button:hover {opacity: 1}
