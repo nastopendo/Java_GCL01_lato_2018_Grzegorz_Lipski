@@ -56,10 +56,6 @@
         <td><span th:text="${picture.size}"></span></td>
         <td><span th:text="${picture.created}"></span></td>
         <td><img th:src="@{'/gallery/picture/' + ${picture.index}}"/></td>
-        <!--<td><button class="button">Delete</button></td>-->
-        <!--<td> <a class="btn btn-primary dBtn">Delete</a> </td>-->
-        <!--<td><button class="button" onclick=pictureDao>Remove"</button></td>-->
-        <!--<td><a th:href="@{/delete_user(pictureIndex=${picture.index})}" class="btn btn-danger">Delete</a></td>-->
         <td><button> <a th:href="@{/delete_user(pictureIndex=${picture.index})}" class="button">Delete</a></button></td>
     </tr>
 </table>
